@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descolamento de Retina — Dr. Antonio Eduardo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap');
+
+  :root {
+    --tinta:   #1A1A2E;
+    --papiro:  #F5F0E8;
+    --verdete: #2D6A4F;
+    --ambar:   #E9C46A;
+    --pedra:   #8D99AE;
+
+    --ff-display: 'Fraunces', serif;
+    --ff-body:    'Inter', sans-serif;
+    --ff-mono:    'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--pedra);
+    font-family: var(--ff-body);
+    color: var(--tinta);
+    min-height: 100vh;
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 48px 16px 120px;
+  }
+
+  .page-header {
+    width: 100%;
+    max-width: 540px;
+    color: var(--papiro);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0.85;
+  }
+
+  .slide {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.35);
+  }
+
+  .slide[data-bg="tinta"]  { background: var(--tinta);  color: var(--papiro); }
+  .slide[data-bg="papiro"] { background: var(--papiro); color: var(--tinta); }
+
+  .slide-inner {
+    position: absolute;
+    inset: 0;
+    padding: 9% 9%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-counter {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    opacity: 0.6;
+  }
+
+  .slide[data-bg="tinta"]  .slide-counter { color: var(--papiro); }
+  .slide[data-bg="papiro"] .slide-counter { color: var(--tinta); }
+
+  .slide-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  .rule { display: block; height: 1px; border: 0; }
+  .rule--ambar    { background: var(--ambar); }
+  .rule--verdete  { background: var(--verdete); }
+  .rule--papiro   { background: var(--papiro); opacity: 0.25; }
+  .rule--tinta    { background: var(--tinta);  opacity: 0.2; }
+
+  .eyebrow {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .h-display {
+    font-family: var(--ff-display);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+
+  .h-title {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+
+  .body-text {
+    font-family: var(--ff-body);
+    font-weight: 400;
+    line-height: 1.55;
+  }
+
+  .label-mono {
+    font-family: var(--ff-mono);
+    letter-spacing: 0.08em;
+  }
+
+  /* ===================== SLIDE 1 — CAPA ===================== */
+  .s1 .slide-inner { justify-content: space-between; }
+  .s1 .marker {
+    width: 56px; height: 1px; background: var(--ambar);
+    margin-bottom: 4%;
+  }
+  .s1 .title {
+    font-size: clamp(34px, 7.6vw, 64px);
+    color: var(--papiro);
+  }
+  .s1 .subtitle {
+    margin-top: 6%;
+    font-family: var(--ff-body);
+    font-weight: 400;
+    font-size: clamp(14px, 2.6vw, 18px);
+    color: var(--papiro);
+    opacity: 0.78;
+    max-width: 80%;
+    line-height: 1.45;
+  }
+  .s1 .signature {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    color: var(--ambar);
+    font-size: clamp(15px, 2.4vw, 18px);
+    margin-bottom: 2px;
+  }
+  .s1 .role {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--papiro);
+    opacity: 0.6;
+  }
+  .s1 .ambar-band {
+    position: absolute;
+    left: 9%; right: 9%;
+    bottom: 23%;
+    height: 1px;
+    background: var(--ambar);
+  }
+
+  /* ===================== SLIDE 2 — O QUE É ===================== */
+  .s2 .big-num {
+    font-family: var(--ff-display);
+    font-weight: 900;
+    font-size: clamp(120px, 28vw, 240px);
+    color: var(--ambar);
+    line-height: 0.85;
+    margin-top: 2%;
+    margin-bottom: 6%;
+    letter-spacing: -0.04em;
+  }
+  .s2 .title {
+    font-size: clamp(26px, 5.4vw, 44px);
+    max-width: 92%;
+  }
+  .s2 .body {
+    margin-top: 6%;
+    font-size: clamp(13px, 2.4vw, 16px);
+    max-width: 90%;
+    color: var(--tinta);
+  }
+
+  /* ===================== SLIDE 3 — TIPOS ===================== */
+  .s3 .title {
+    font-size: clamp(28px, 5.6vw, 46px);
+    color: var(--papiro);
+    margin-bottom: 8%;
+  }
+  .s3 .title em {
+    font-style: normal;
+    color: var(--ambar);
+  }
+  .s3 .list { display: flex; flex-direction: column; gap: 18px; }
+  .s3 .item {
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    gap: 14px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--verdete);
+  }
+  .s3 .item:last-child { border-bottom: 0; }
+  .s3 .item-num {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--verdete);
+    letter-spacing: 0.16em;
+    padding-top: 6px;
+  }
+  .s3 .item-name {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: clamp(16px, 3vw, 21px);
+    color: var(--papiro);
+    margin-bottom: 4px;
+  }
+  .s3 .item-desc {
+    font-family: var(--ff-body);
+    font-size: clamp(12px, 2.2vw, 14px);
+    color: var(--papiro);
+    opacity: 0.78;
+    line-height: 1.5;
+  }
+
+  /* ===================== SLIDE 4 — SINAIS DE ALERTA ===================== */
+  .s4 .title {
+    font-size: clamp(28px, 5.6vw, 46px);
+    margin-bottom: 7%;
+    max-width: 90%;
+  }
+  .s4 .signals { display: flex; flex-direction: column; gap: 18px; }
+  .s4 .signal {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    column-gap: 14px;
+    align-items: baseline;
+  }
+  .s4 .signal-dash {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--verdete);
+    transform: translateY(8px);
+  }
+  .s4 .signal-text {
+    font-family: var(--ff-body);
+    font-size: clamp(13px, 2.5vw, 16px);
+    line-height: 1.45;
+  }
+  .s4 .signal-text strong {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    color: var(--verdete);
+  }
+
+  /* ===================== SLIDE 5 — ESTATÍSTICA ===================== */
+  .s5 .slide-inner { justify-content: space-between; }
+  .s5 .eyebrow { color: var(--papiro); opacity: 0.7; }
+  .s5 .stat-block { margin-top: 4%; }
+  .s5 .stat-num {
+    font-family: var(--ff-display);
+    font-weight: 900;
+    font-size: clamp(78px, 17vw, 150px);
+    color: var(--ambar);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+  .s5 .stat-cont {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: clamp(22px, 4.4vw, 34px);
+    color: var(--papiro);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .s5 .stat-rule {
+    margin: 7% 0;
+    width: 56px;
+    height: 1px;
+    background: var(--ambar);
+  }
+  .s5 .stat-sub {
+    font-size: clamp(13px, 2.5vw, 16px);
+    color: var(--papiro);
+    opacity: 0.85;
+    max-width: 92%;
+    line-height: 1.5;
+  }
+  .s5 .stat-sub strong {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    color: var(--ambar);
+    opacity: 1;
+  }
+  .s5 .source {
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--papiro);
+    opacity: 0.55;
+    text-transform: uppercase;
+  }
+
+  /* ===================== SLIDE 6 — FATORES DE RISCO ===================== */
+  .s6 .slide-inner {
+    padding-left: calc(9% + 18px);
+  }
+  .s6 .side-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 18px;
+    background: var(--verdete);
+  }
+  .s6 .title {
+    font-size: clamp(28px, 5.6vw, 46px);
+    margin-bottom: 8%;
+    max-width: 88%;
+  }
+  .s6 .risks { display: flex; flex-direction: column; gap: 14px; }
+  .s6 .risk {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    align-items: baseline;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(26,26,46,0.12);
+  }
+  .s6 .risk:last-child { border-bottom: 0; }
+  .s6 .risk-num {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    color: var(--verdete);
+  }
+  .s6 .risk-text {
+    font-family: var(--ff-body);
+    font-weight: 500;
+    font-size: clamp(13px, 2.5vw, 16px);
+  }
+
+  /* ===================== SLIDE 7 — DIAGNÓSTICO ===================== */
+  .s7 .eyebrow { color: var(--ambar); }
+  .s7 .title {
+    margin-top: 4%;
+    font-size: clamp(28px, 5.6vw, 46px);
+    color: var(--papiro);
+    max-width: 92%;
+  }
+  .s7 .body {
+    margin-top: 6%;
+    color: var(--papiro);
+    opacity: 0.82;
+    font-size: clamp(13px, 2.4vw, 15.5px);
+    max-width: 92%;
+    line-height: 1.55;
+  }
+  .s7 .cta-internal {
+    margin-top: auto;
+    padding-top: 8%;
+    border-top: 1px solid var(--ambar);
+    font-family: var(--ff-display);
+    font-weight: 700;
+    font-size: clamp(20px, 4vw, 30px);
+    color: var(--ambar);
+    line-height: 1.15;
+  }
+
+  /* ===================== SLIDE 8 — TRATAMENTO ===================== */
+  .s8 .title {
+    font-size: clamp(28px, 5.6vw, 46px);
+    max-width: 92%;
+  }
+  .s8 .title em {
+    font-style: normal;
+    color: var(--verdete);
+  }
+  .s8 .accent-line {
+    margin: 6% 0;
+    width: 80px;
+    height: 3px;
+    background: var(--verdete);
+  }
+  .s8 .body {
+    font-size: clamp(13px, 2.4vw, 16px);
+    line-height: 1.6;
+    max-width: 92%;
+  }
+  .s8 .body strong {
+    font-family: var(--ff-display);
+    font-weight: 700;
+    color: var(--verdete);
+  }
+
+  /* ===================== SLIDE 9 — CTA FINAL ===================== */
+  .s9 .slide-inner { justify-content: space-between; }
+  .s9 .marker { width: 56px; height: 1px; background: var(--ambar); }
+  .s9 .main {
+    font-family: var(--ff-display);
+    font-weight: 900;
+    color: var(--papiro);
+    font-size: clamp(28px, 5.8vw, 46px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-top: 6%;
+  }
+  .s9 .sub {
+    color: var(--papiro);
+    opacity: 0.78;
+    font-size: clamp(13px, 2.4vw, 16px);
+    margin-top: 6%;
+    max-width: 92%;
+    line-height: 1.5;
+  }
+  .s9 .divider {
+    height: 1px;
+    background: var(--ambar);
+    margin: 7% 0;
+  }
+  .s9 .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--papiro);
+  }
+  .s9 .contact span { opacity: 0.55; margin-right: 8px; }
+  .s9 .location {
+    margin-top: 6%;
+    font-family: var(--ff-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ambar);
+  }
+
+  /* ===================== NAVEGAÇÃO ===================== */
+  .nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--tinta);
+    padding: 10px 14px;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,0.5);
+    z-index: 50;
+  }
+  .nav button {
+    appearance: none;
+    border: 1px solid var(--papiro);
+    background: transparent;
+    color: var(--papiro);
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 120ms ease, color 120ms ease;
+  }
+  .nav button:hover { background: var(--papiro); color: var(--tinta); }
+  .nav .indicator {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    color: var(--ambar);
+    letter-spacing: 0.18em;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    .page { padding: 24px 0 110px; }
+    .page-header { padding: 0 16px; }
+    .slide { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="page-header">
+    <span>DR. ANTONIO EDUARDO — V01 / 2026</span>
+    <span>09 SLIDES</span>
+  </header>
+
+  <!-- ============================= SLIDE 1 ============================= -->
+  <section class="slide s1" data-bg="tinta" id="slide-1">
+    <div class="slide-inner">
+      <div>
+        <div class="slide-counter">01 / 09</div>
+        <div class="marker" style="margin-top:6%"></div>
+        <h1 class="h-display title">Descolamento<br>de Retina</h1>
+        <p class="subtitle">O que você precisa saber antes que seja tarde.</p>
+      </div>
+      <div>
+        <div class="signature">Dr. Antonio Eduardo</div>
+        <div class="role">Oftalmologista · CRM-SP 244412</div>
+      </div>
+    </div>
+    <div class="ambar-band"></div>
+  </section>
+
+  <!-- ============================= SLIDE 2 ============================= -->
+  <section class="slide s2" data-bg="papiro" id="slide-2">
+    <div class="slide-inner">
+      <div class="slide-counter">02 / 09</div>
+      <div class="big-num">02</div>
+      <h2 class="h-title title">O que é o descolamento de retina?</h2>
+      <p class="body-text body">
+        A retina é a camada interna do olho responsável por captar a luz.
+        O descolamento ocorre quando ela se separa do tecido que a nutre,
+        interrompendo a visão de forma súbita e silenciosa.
+      </p>
+      <div class="slide-footer">
+        <span>ANATOMIA</span>
+        <span>DR. ANTONIO EDUARDO</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 3 ============================= -->
+  <section class="slide s3" data-bg="tinta" id="slide-3">
+    <div class="slide-inner">
+      <div class="slide-counter">03 / 09</div>
+      <h2 class="h-title title" style="margin-top:6%"><em>3</em> tipos principais</h2>
+
+      <div class="list">
+        <div class="item">
+          <div class="item-num">I.</div>
+          <div>
+            <div class="item-name">Regmatogênico</div>
+            <div class="item-desc">O mais comum, causado por uma ruptura na retina.</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-num">II.</div>
+          <div>
+            <div class="item-name">Tracional</div>
+            <div class="item-desc">Tecido cicatricial puxa a retina, comum no diabetes.</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-num">III.</div>
+          <div>
+            <div class="item-name">Exsudativo</div>
+            <div class="item-desc">Acúmulo de fluido sob a retina, sem ruptura.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>CLASSIFICAÇÃO</span>
+        <span>03 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 4 ============================= -->
+  <section class="slide s4" data-bg="papiro" id="slide-4">
+    <div class="slide-inner">
+      <div class="slide-counter">04 / 09</div>
+      <h2 class="h-title title" style="margin-top:5%">Não ignore<br>estes sinais.</h2>
+
+      <div class="signals">
+        <div class="signal">
+          <span class="signal-dash"></span>
+          <div class="signal-text"><strong>Flashes de luz</strong> (fotopsias).</div>
+        </div>
+        <div class="signal">
+          <span class="signal-dash"></span>
+          <div class="signal-text"><strong>Moscas volantes</strong> em grande quantidade (miodesopsias).</div>
+        </div>
+        <div class="signal">
+          <span class="signal-dash"></span>
+          <div class="signal-text"><strong>Sombra ou cortina</strong> no campo visual.</div>
+        </div>
+        <div class="signal">
+          <span class="signal-dash"></span>
+          <div class="signal-text"><strong>Perda súbita de visão</strong> central ou periférica.</div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>SINAIS DE ALERTA</span>
+        <span>04 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 5 ============================= -->
+  <section class="slide s5" data-bg="tinta" id="slide-5">
+    <div class="slide-inner">
+      <div class="slide-counter">05 / 09</div>
+      <div class="eyebrow" style="margin-top:6%">INCIDÊNCIA ANUAL</div>
+
+      <div class="stat-block">
+        <div class="stat-num">1 em 10.000</div>
+        <span class="stat-cont">pessoas, a cada ano.</span>
+      </div>
+
+      <div>
+        <div class="stat-rule"></div>
+        <p class="stat-sub">
+          Miopes elevados e pacientes acima de 50 anos têm risco
+          até <strong>5× maior</strong> de desenvolver a condição.
+        </p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="source">FONTE · LITERATURA OFTALMOLÓGICA</span>
+        <span>05 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 6 ============================= -->
+  <section class="slide s6" data-bg="papiro" id="slide-6">
+    <div class="side-bar"></div>
+    <div class="slide-inner">
+      <div class="slide-counter">06 / 09</div>
+      <h2 class="h-title title" style="margin-top:5%">Quem tem<br>mais risco?</h2>
+
+      <div class="risks">
+        <div class="risk"><span class="risk-num">01</span><span class="risk-text">Miopia elevada (acima de −6 graus).</span></div>
+        <div class="risk"><span class="risk-num">02</span><span class="risk-text">Histórico familiar de descolamento.</span></div>
+        <div class="risk"><span class="risk-num">03</span><span class="risk-text">Trauma ocular prévio.</span></div>
+        <div class="risk"><span class="risk-num">04</span><span class="risk-text">Cirurgia ocular anterior (catarata).</span></div>
+        <div class="risk"><span class="risk-num">05</span><span class="risk-text">Diabetes mellitus.</span></div>
+      </div>
+
+      <div class="slide-footer">
+        <span>FATORES DE RISCO</span>
+        <span>06 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 7 ============================= -->
+  <section class="slide s7" data-bg="tinta" id="slide-7">
+    <div class="slide-inner">
+      <div class="slide-counter">07 / 09</div>
+      <div class="eyebrow">DIAGNÓSTICO</div>
+      <h2 class="h-title title">Como é feito<br>o diagnóstico?</h2>
+      <p class="body-text body">
+        O oftalmologista realiza o mapeamento de retina com dilatação
+        pupilar, um exame indolor que permite visualizar toda a extensão
+        da retina. É o único exame capaz de detectar rupturas antes do
+        descolamento.
+      </p>
+      <div class="cta-internal">
+        Você fez seu mapeamento<br>este ano?
+      </div>
+      <div class="slide-footer" style="margin-top:6%">
+        <span>EXAME</span>
+        <span>07 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 8 ============================= -->
+  <section class="slide s8" data-bg="papiro" id="slide-8">
+    <div class="slide-inner">
+      <div class="slide-counter">08 / 09</div>
+      <h2 class="h-title title" style="margin-top:5%">
+        Tem tratamento,<br>mas <em>o tempo importa.</em>
+      </h2>
+      <div class="accent-line"></div>
+      <p class="body-text body">
+        O tratamento é cirúrgico e deve ser realizado com urgência.
+        Quanto <strong>mais rápido o diagnóstico</strong>, maiores as
+        chances de recuperação visual completa. Casos tratados antes
+        do envolvimento macular têm prognóstico significativamente
+        melhor.
+      </p>
+      <div class="slide-footer">
+        <span>TRATAMENTO</span>
+        <span>08 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= SLIDE 9 ============================= -->
+  <section class="slide s9" data-bg="tinta" id="slide-9">
+    <div class="slide-inner">
+      <div>
+        <div class="slide-counter">09 / 09</div>
+        <div class="marker" style="margin-top:6%"></div>
+        <h2 class="main">
+          Cuide da sua visão<br>antes que os<br>sintomas apareçam.
+        </h2>
+        <p class="sub">
+          Agende sua consulta e faça o mapeamento de retina.
+        </p>
+      </div>
+
+      <div>
+        <div class="divider"></div>
+        <div class="contact">
+          <div><span>WHATSAPP</span>wa.me/[número]</div>
+          <div><span>INSTAGRAM</span>@antonioeduardo94</div>
+        </div>
+        <div class="location">SÃO PAULO &nbsp;·&nbsp; SÃO BERNARDO DO CAMPO</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="nav" aria-label="Navegação do carrossel">
+  <button type="button" id="prev">Anterior</button>
+  <div class="indicator" id="indicator">01 / 09</div>
+  <button type="button" id="next">Próximo</button>
+</nav>
+
+<script>
+  (function () {
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const total = slides.length;
+    const indicator = document.getElementById('indicator');
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+
+    let current = 0;
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function updateIndicator() {
+      indicator.textContent = pad(current + 1) + ' / ' + pad(total);
+    }
+
+    function goTo(i) {
+      current = Math.max(0, Math.min(total - 1, i));
+      slides[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      updateIndicator();
+    }
+
+    prev.addEventListener('click', () => goTo(current - 1));
+    next.addEventListener('click', () => goTo(current + 1));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+          const idx = slides.indexOf(entry.target);
+          if (idx >= 0) { current = idx; updateIndicator(); }
+        }
+      });
+    }, { threshold: [0.6] });
+
+    slides.forEach((s) => observer.observe(s));
+
+    updateIndicator();
+  })();
+</script>
+
+</body>
+</html>
