@@ -12,6 +12,8 @@
 --tinta: #0D1310;
 --papiro: #F1EADC;
 --verdete: #1F3B2F;
+--verdete-dark: #15291f;
+--verdete-light: #2a4d3e;
 --ambar: #C9772A;
 --ambar-dark: #a85f1e;
 --pedra: #6F6A62;
@@ -34,41 +36,72 @@ nav a:hover { opacity: 1; }
 .mobile-nav.open { display: flex; }
 .mobile-nav a { padding: 16px 40px; font-family: 'Inter', sans-serif; font-size: 15px; color: var(--tinta); text-decoration: none; border-bottom: 0.5px solid rgba(111,106,98,0.15); opacity: 0.8; }
 .mobile-nav a:hover { opacity: 1; }
-.hero { padding-top: 64px; background-color: var(--papiro); }
-.hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 40px 100px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: center; }
+.hero { padding-top: 64px; background-color: var(--papiro); position: relative; overflow: hidden; }
+.hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 40px 100px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
 .hero-text { }
-.hero-photo { display: flex; justify-content: center; }
-.hero-photo img { width: 100%; max-width: 360px; aspect-ratio: 4/5; object-fit: cover; border: 0.5px solid rgba(111,106,98,0.35); filter: grayscale(15%); }
+.hero-photo { display: flex; justify-content: center; position: relative; }
+.hero-photo img { width: 100%; max-width: 360px; aspect-ratio: 4/5; object-fit: cover; border: 0.5px solid rgba(111,106,98,0.35); filter: grayscale(15%); position: relative; z-index: 1; }
+.hero-photo::before { content: ''; position: absolute; top: -16px; left: 50%; transform: translateX(-50%); width: calc(100% - 24px); max-width: 360px; height: calc(100% + 0px); background-color: var(--verdete); z-index: 0; transform: translateX(calc(-50% + 16px)) translateY(16px); opacity: 0.85; }
 .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--verdete); margin-bottom: 28px; }
 .hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.12; letter-spacing: -0.025em; color: var(--tinta); margin-bottom: 32px; }
 .hero-subtitle { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 18px; line-height: 1.7; color: var(--tinta); opacity: 0.65; margin-bottom: 52px; }
 .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
-.btn-verdete { display: inline-block; background-color: var(--ambar); color: var(--tinta); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--ambar); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
-.btn-primary:hover { background-color: var(--ambar-dark); border-color: var(--ambar-dark); }
+.btn-verdete { display: inline-block; background-color: var(--verdete); color: white; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; transition: background-color .2s ease; }
+.btn-verdete:hover { background-color: var(--verdete-dark); border-color: var(--verdete-dark); }
 .btn-secondary { display: inline-block; background-color: transparent; color: var(--verdete); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
 .btn-secondary:hover { background-color: rgba(31,59,47,0.06); }
-.btn-verdete { display: inline-block; background-color: var(--verdete); color: white; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
-.btn-verdete:hover { background-color: #15291f; border-color: #15291f; }
-.btn-amber { display: inline-block; background-color: var(--ambar); color: var(--tinta); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--ambar); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
+.btn-amber { display: inline-block; background-color: var(--ambar); color: var(--tinta); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--ambar); text-decoration: none; line-height: 1; letter-spacing: 0.01em; transition: background-color .2s ease; }
 .btn-amber:hover { background-color: var(--ambar-dark); border-color: var(--ambar-dark); }
-.section-inner { max-width: 1200px; margin: 0 auto; padding: 96px 40px; }
+.btn-primary { display: inline-block; background-color: var(--verdete); color: white; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
+.btn-primary:hover { background-color: var(--verdete-dark); border-color: var(--verdete-dark); }
+.section-inner { max-width: 1200px; margin: 0 auto; padding: 96px 40px; position: relative; }
 .section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pedra); margin-bottom: 24px; }
-#sobre { background-color: var(--papiro); }
+/* SVG Pupila/Triângulo - símbolos VERDETE */
+.simbolo-verdete { display: inline-block; vertical-align: middle; }
+.simbolo-verdete svg { display: block; }
+
+/* Easter egg: triângulo com olho */
+.easter-egg { position: absolute; opacity: 0.18; pointer-events: none; user-select: none; }
+.easter-egg svg { display: block; width: 100%; height: 100%; }
+.easter-egg.ee-sobre { top: 48px; right: 48px; width: 60px; height: 50px; }
+.easter-egg.ee-conceito { bottom: 40px; right: 60px; width: 56px; height: 48px; opacity: 0.14; }
+.easter-egg.ee-contato { top: 60px; right: 80px; width: 54px; height: 46px; opacity: 0.16; }
+.easter-egg.ee-footer { width: 28px; height: 24px; position: relative; opacity: 0.35; top: 0; right: 0; margin-left: 12px; vertical-align: middle; }
+
+/* Padrão de pontos (verdete) - bem sutil em sessões claras */
+.dots-pattern { position: absolute; inset: 0; pointer-events: none; opacity: 0.07; background-image: radial-gradient(circle at center, var(--verdete) 1.5px, transparent 2px), radial-gradient(circle at center, transparent 6px, var(--verdete) 6.5px, transparent 7.5px); background-size: 38px 38px, 38px 38px; background-position: 0 0, 0 0; }
+
+#sobre { background-color: var(--papiro); position: relative; overflow: hidden; }
 .sobre-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.2; letter-spacing: -0.02em; color: var(--tinta); margin-bottom: 40px; max-width: 620px; }
-.sobre-body { max-width: 680px; }
+.sobre-body { max-width: 680px; position: relative; z-index: 1; }
 .sobre-body p { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 17px; line-height: 1.8; color: var(--tinta); opacity: 0.75; margin-bottom: 20px; }
 .sobre-body p:last-child { margin-bottom: 0; }
 .sobre-body strong { font-weight: 500; opacity: 1; }
-#conceito { background-color: var(--verdete); }
+
+/* Bloco "Sobre Verdete" - referência à 1ª imagem */
+.sobre-verdete-block { margin-top: 72px; background-color: var(--verdete); padding: 64px 56px; position: relative; overflow: hidden; }
+.sobre-verdete-block::before { content: ''; position: absolute; inset: 0; opacity: 0.18; background-image: radial-gradient(circle at center, var(--ambar) 1.5px, transparent 2.5px), radial-gradient(circle at center, transparent 7px, rgba(241,234,220,0.5) 7.5px, transparent 8.5px); background-size: 44px 44px, 44px 44px; background-position: 0 0, 0 0; pointer-events: none; }
+.sobre-verdete-block > * { position: relative; z-index: 1; }
+.sobre-verdete-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(241,234,220,0.65); margin-bottom: 28px; }
+.sobre-verdete-title { font-family: 'Fraunces', serif; font-weight: 400; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -0.03em; color: var(--papiro); }
+.sobre-verdete-title .sv-dr { font-style: italic; font-weight: 300; color: var(--ambar); font-size: 0.55em; margin-right: 14px; vertical-align: 0.35em; }
+.sobre-verdete-text { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.8; color: rgba(241,234,220,0.7); margin-top: 32px; max-width: 540px; }
+
+#conceito { background-color: var(--verdete); position: relative; overflow: hidden; }
+#conceito::before { content: ''; position: absolute; inset: 0; opacity: 0.08; background-image: radial-gradient(circle at center, var(--ambar) 1.2px, transparent 2px), radial-gradient(circle at center, transparent 6px, rgba(241,234,220,0.6) 6.5px, transparent 7.5px); background-size: 40px 40px; pointer-events: none; }
+#conceito .section-inner { position: relative; z-index: 1; }
 .conceito-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,234,220,0.45); margin-bottom: 56px; }
 .conceito-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0.5px solid rgba(241,234,220,0.18); }
-.conceito-item { padding: 48px 40px 48px 0; border-right: 0.5px solid rgba(241,234,220,0.12); }
+.conceito-item { padding: 48px 40px 48px 0; border-right: 0.5px solid rgba(241,234,220,0.12); position: relative; }
 .conceito-item:last-child { border-right: none; padding-right: 0; }
 .conceito-item:not(:first-child) { padding-left: 40px; }
 .conceito-num { display: block; font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 40px; line-height: 1; color: var(--ambar); margin-bottom: 24px; }
 .conceito-titulo { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.25; color: var(--papiro); margin-bottom: 16px; }
 .conceito-texto { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.75; color: rgba(241,234,220,0.6); }
-#especialidades { background-color: var(--verdete); }
+
+#especialidades { background-color: var(--verdete); position: relative; overflow: hidden; }
+#especialidades::before { content: ''; position: absolute; inset: 0; opacity: 0.06; background-image: radial-gradient(circle at center, var(--ambar) 1.2px, transparent 2px), radial-gradient(circle at center, transparent 6px, rgba(241,234,220,0.6) 6.5px, transparent 7.5px); background-size: 40px 40px; pointer-events: none; }
+#especialidades .section-inner { position: relative; z-index: 1; }
 .espec-divider { border: none; border-top: 0.5px solid rgba(241,234,220,0.12); }
 .espec-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 64px; flex-wrap: wrap; gap: 16px; }
 .espec-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,234,220,0.45); }
@@ -80,8 +113,13 @@ nav a:hover { opacity: 1; }
 .pupila::after { content: ''; width: 13px; height: 13px; border-radius: 50%; background-color: var(--ambar); opacity: 0.85; }
 .espec-num { display: block; font-family: 'Fraunces', serif; font-style: italic; font-weight: 300; font-size: 12px; color: var(--ambar); margin-bottom: 3px; opacity: 0.9; }
 .espec-name { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; line-height: 1.45; color: var(--papiro); }
-#contato { background-color: var(--papiro); }
-.contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+/* Faixa decorativa de pontos (referência 2ª imagem) */
+.faixa-pontos { background-color: var(--verdete); height: 120px; overflow: hidden; position: relative; }
+.faixa-pontos::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at center, var(--ambar) 2.5px, transparent 3.5px), radial-gradient(circle at center, transparent 10px, rgba(241,234,220,0.55) 10.5px, transparent 11.5px); background-size: 56px 56px; opacity: 0.85; }
+
+#contato { background-color: var(--papiro); position: relative; overflow: hidden; }
+.contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; position: relative; z-index: 1; }
 .contato-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(26px, 3vw, 40px); line-height: 1.2; letter-spacing: -0.02em; color: var(--tinta); margin-bottom: 40px; }
 .contato-dados { border-left: 5px solid var(--verdete); padding-left: 28px; margin-bottom: 40px; display: flex; flex-direction: column; gap: 20px; }
 .dado-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--pedra); margin-bottom: 3px; }
@@ -93,11 +131,14 @@ nav a:hover { opacity: 1; }
 .link-ambar { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; color: var(--ambar); text-decoration: none; }
 .link-ambar:hover { text-decoration: underline; }
 .contato-right { padding-top: 40px; }
-.cta-block { border: 0.5px solid rgba(111,106,98,0.3); padding: 48px; }
-.cta-block-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.3; color: var(--tinta); margin-bottom: 12px; }
-.cta-block-text { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.7; color: var(--tinta); opacity: 0.6; margin-bottom: 32px; }
-footer { background-color: var(--tinta); }
-.footer-inner { max-width: 1200px; margin: 0 auto; padding: 48px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.cta-block { border: 0.5px solid rgba(111,106,98,0.3); padding: 48px; background-color: rgba(31,59,47,0.03); position: relative; overflow: hidden; }
+.cta-block::after { content: ''; position: absolute; right: -30px; bottom: -30px; width: 140px; height: 140px; background-image: radial-gradient(circle at center, var(--verdete) 1.5px, transparent 2.5px), radial-gradient(circle at center, transparent 7px, rgba(31,59,47,0.5) 7.5px, transparent 8.5px); background-size: 32px 32px; opacity: 0.18; pointer-events: none; }
+.cta-block-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: 22px; line-height: 1.3; color: var(--tinta); margin-bottom: 12px; position: relative; z-index: 1; }
+.cta-block-text { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 15px; line-height: 1.7; color: var(--tinta); opacity: 0.6; margin-bottom: 32px; position: relative; z-index: 1; }
+
+footer { background-color: var(--tinta); position: relative; overflow: hidden; }
+footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--verdete) 30%, var(--verdete) 70%, transparent); opacity: 0.5; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 48px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; position: relative; z-index: 1; }
 .footer-logo { text-decoration: none; display: flex; align-items: baseline; }
 .footer-logo-dr { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 16px; color: var(--verdete); }
 .footer-logo-antonio { font-family: 'Fraunces', serif; font-style: normal; font-weight: 400; font-size: 16px; color: var(--papiro); margin-left: 3px; }
@@ -105,6 +146,7 @@ footer { background-color: var(--tinta); }
 .footer-links { display: flex; gap: 24px; }
 .footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; color: rgba(241,234,220,0.35); text-decoration: none; }
 .footer-links a:hover { color: rgba(241,234,220,0.75); }
+
 @media (max-width: 768px) {
 .header-inner { padding: 0 24px; }
 nav { display: none; }
@@ -114,8 +156,9 @@ nav { display: none; }
 .hero-photo { order: -1; }
 .hero-photo img { max-width: 260px; }
 .hero-ctas { flex-direction: column; }
-.btn-primary, .btn-secondary { text-align: center; }
+.btn-primary, .btn-secondary, .btn-verdete, .btn-amber { text-align: center; }
 .section-inner { padding: 72px 24px; }
+.sobre-verdete-block { padding: 48px 28px; margin-top: 56px; }
 .conceito-grid { grid-template-columns: 1fr; }
 .conceito-item { padding: 36px 0; border-right: none; border-bottom: 0.5px solid rgba(241,234,220,0.12); }
 .conceito-item:not(:first-child) { padding-left: 0; }
@@ -127,6 +170,8 @@ nav { display: none; }
 .contato-right { padding-top: 0; }
 .cta-block { padding: 32px 24px; }
 .footer-inner { padding: 40px 24px; flex-direction: column; align-items: flex-start; gap: 16px; }
+.faixa-pontos { height: 80px; }
+.easter-egg.ee-sobre, .easter-egg.ee-conceito, .easter-egg.ee-contato { width: 42px; height: 36px; top: 24px; right: 24px; }
 }
 @media (max-width: 480px) {
 .espec-grid { grid-template-columns: 1fr; }
@@ -135,6 +180,17 @@ nav { display: none; }
 </style>
 </head>
 <body>
+<!-- SVG sprite: símbolo triângulo-olho (easter egg) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sym-triangulo-olho" viewBox="0 0 60 52">
+      <polygon points="30,4 56,48 4,48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <circle cx="30" cy="36" r="6" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="30" cy="36" r="1.6" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
 <header id="header">
 <div class="header-inner">
 <a class="logo" href="#top">
@@ -156,6 +212,7 @@ nav { display: none; }
 <a href="#contato" onclick="closeMobileNav()">Contato</a>
 </div>
 </header>
+
 <section class="hero" id="top">
 <div class="hero-inner">
 <div class="hero-text">
@@ -172,9 +229,14 @@ nav { display: none; }
 </div>
 </div>
 </section>
+
 <hr class="divider" />
+
 <section id="sobre">
 <div class="section-inner">
+<!-- Easter egg #1 (discreto, canto superior direito) -->
+<span class="easter-egg ee-sobre" style="color: var(--verdete)" aria-hidden="true"><svg><use href="#sym-triangulo-olho"/></svg></span>
+
 <p class="section-label">Sobre o médico</p>
 <h2 class="sobre-title">Um olhar que lê antes de concluir.</h2>
 <div class="sobre-body">
@@ -182,11 +244,23 @@ nav { display: none; }
 <p>Formado com ênfase em saúde ocular integral, Dr Antonio compreende a visão não apenas como função biológica, mas como relação do indivíduo com o mundo. Sua consulta é um espaço de leitura, da retina, do histórico, da pessoa.</p>
 <p>Atende pelo e-mail <strong>montanhamedicina@gmail.com</strong> e agendamento direto via WhatsApp, priorizando proximidade e clareza em cada etapa do cuidado.</p>
 </div>
+
+<!-- Bloco "Sobre Verdete" - referência à 1ª imagem -->
+<div class="sobre-verdete-block">
+<p class="sobre-verdete-label">Sobre Verdete</p>
+<h3 class="sobre-verdete-title"><span class="sv-dr">Dr</span>Antonio</h3>
+<p class="sobre-verdete-text">O verdete é a cor da consistência, da escuta e da medicina sem ornamento. Identifica a prática clínica do Dr Antonio Eduardo, séria, duradoura, e atenta àquilo que se vê e ao que ainda não foi dito.</p>
+</div>
 </div>
 </section>
+
 <hr class="divider" />
+
 <section id="conceito">
 <div class="section-inner">
+<!-- Easter egg #2 (discreto) -->
+<span class="easter-egg ee-conceito" style="color: var(--papiro)" aria-hidden="true"><svg><use href="#sym-triangulo-olho"/></svg></span>
+
 <p class="conceito-label">Conduta da marca · Três pilares</p>
 <div class="conceito-grid">
 <div class="conceito-item">
@@ -207,7 +281,12 @@ nav { display: none; }
 </div>
 </div>
 </section>
+
+<!-- Faixa decorativa de pontos verdete (referência à 2ª imagem) -->
+<div class="faixa-pontos" aria-hidden="true"></div>
+
 <hr class="espec-divider" />
+
 <section id="especialidades">
 <div class="section-inner">
 <div class="espec-header">
@@ -226,9 +305,14 @@ nav { display: none; }
 </div>
 </div>
 </section>
+
 <hr class="divider" />
+
 <section id="contato">
 <div class="section-inner">
+<!-- Easter egg #3 (discreto) -->
+<span class="easter-egg ee-contato" style="color: var(--verdete)" aria-hidden="true"><svg><use href="#sym-triangulo-olho"/></svg></span>
+
 <div class="contato-grid">
 <div>
 <p class="section-label">Informações de contato</p>
@@ -270,12 +354,16 @@ nav { display: none; }
 </div>
 </div>
 </section>
+
 <hr class="divider" />
+
 <footer>
 <div class="footer-inner">
 <a class="footer-logo" href="#top">
 <span class="footer-logo-dr">Dr</span>
 <span class="footer-logo-antonio">Antonio</span>
+<!-- Easter egg #4 (mini, no rodapé, ao lado do logo) -->
+<span class="easter-egg ee-footer" style="color: var(--verdete)" aria-hidden="true"><svg><use href="#sym-triangulo-olho"/></svg></span>
 </a>
 <p class="footer-copy">© 2026 · Dr Antonio Oftalmologia · CRM-SP 244412</p>
 <div class="footer-links">
@@ -284,6 +372,7 @@ nav { display: none; }
 </div>
 </div>
 </footer>
+
 <script>
 const btn = document.getElementById('hamburgerBtn');
 const nav = document.getElementById('mobileNav');
