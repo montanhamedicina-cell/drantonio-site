@@ -22,21 +22,21 @@
 html { scroll-behavior: smooth; }
 body { font-family: 'Inter', system-ui, sans-serif; font-size: 17px; line-height: 1.6; color: var(--tinta); background-color: var(--papiro); -webkit-font-smoothing: antialiased; }
 .divider { border: none; border-top: 0.5px solid rgba(111,106,98,0.35); }
-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background-color: var(--papiro); border-bottom: 0.5px solid rgba(111,106,98,0.25); }
-.header-inner { max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+header { position: fixed; top: 16px; left: 0; right: 0; z-index: 100; background-color: transparent; border-bottom: none; padding: 0 24px; }
+.header-inner { max-width: 1200px; margin: 0 auto; padding: 10px 18px 10px 28px; height: 68px; display: flex; align-items: center; justify-content: space-between; background-color: var(--verdete); border: 1px solid rgba(241,234,220,0.12); border-radius: 9999px; box-shadow: 0 8px 24px rgba(13,19,16,0.18); }
 .logo { display: flex; align-items: baseline; text-decoration: none; user-select: none; }
-.logo-dr { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 22px; color: var(--verdete); letter-spacing: -0.02em; }
-.logo-antonio { font-family: 'Fraunces', serif; font-style: normal; font-weight: 400; font-size: 22px; color: var(--tinta); letter-spacing: -0.02em; margin-left: 3px; }
-nav { display: flex; align-items: center; gap: 40px; }
-nav a { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 15px; color: var(--tinta); text-decoration: none; letter-spacing: 0.02em; opacity: 0.7; }
-nav a:hover { opacity: 1; }
+.logo-dr { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 22px; color: var(--ambar); letter-spacing: -0.02em; }
+.logo-antonio { font-family: 'Fraunces', serif; font-style: normal; font-weight: 400; font-size: 22px; color: var(--papiro); letter-spacing: -0.02em; margin-left: 3px; }
+nav { display: flex; align-items: center; gap: 36px; flex: 1; justify-content: center; }
+nav a { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 15px; color: var(--papiro); text-decoration: none; letter-spacing: 0.02em; opacity: 0.85; transition: color .25s ease, opacity .25s ease; }
+nav a:hover { opacity: 1; color: var(--ambar); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-.hamburger span { display: block; width: 24px; height: 1.5px; background-color: var(--verdete); }
+.hamburger span { display: block; width: 24px; height: 1.5px; background-color: var(--papiro); }
 .mobile-nav { display: none; flex-direction: column; background-color: var(--papiro); border-top: 0.5px solid rgba(111,106,98,0.2); }
 .mobile-nav.open { display: flex; }
 .mobile-nav a { padding: 16px 40px; font-family: 'Inter', sans-serif; font-size: 15px; color: var(--tinta); text-decoration: none; border-bottom: 0.5px solid rgba(111,106,98,0.15); opacity: 0.8; }
-.mobile-nav a:hover { opacity: 1; }
-.hero { padding-top: 64px; background-color: var(--papiro); position: relative; overflow: hidden; }
+.mobile-nav a:hover { opacity: 1; color: var(--ambar); }
+.header-cta { display: inline-block; background-color: var(--ambar); color: var(--tinta); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; padding: 12px 24px; border-radius: 9999px; border: 1px solid var(--ambar); text-decoration: none; line-height: 1; letter-spacing: 0.01em; transition: background-color .25s ease, color .25s ease, border-color .25s ease; white-space: nowrap; } .header-cta:hover { background-color: var(--papiro); color: var(--verdete); border-color: var(--papiro); } .hero { padding-top: 96px; background-color: var(--papiro); position: relative; overflow: hidden; }
 .hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 40px 100px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
 .hero-text { }
 .hero-photo { display: flex; justify-content: center; position: relative; }
@@ -200,7 +200,7 @@ nav { display: none; }
 <nav>
 <a href="#sobre">Sobre</a>
 <a href="#especialidades">Áreas de atuação</a>
-<a href="#contato">Contato</a>
+<a href="#contato">Contato</a> </nav> <a class="header-cta" href="https://api.whatsapp.com/send?phone=5511989809639" target="_blank" rel="noopener noreferrer">Agendar Consulta</a> <nav style="display:none">
 </nav>
 <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu">
 <span></span><span></span><span></span>
