@@ -1,4 +1,4 @@
-<!doctype html>
+h<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
@@ -173,6 +173,14 @@ nav { display: none; }
 .faixa-pontos { height: 80px; }
 .easter-egg.ee-sobre, .easter-egg.ee-conceito, .easter-egg.ee-contato { width: 42px; height: 36px; top: 24px; right: 24px; }
 }
+  /* Scroll animations - elements fade in as user scrolls */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in-scroll { opacity: 0; animation: fadeInUp 0.6s ease-out forwards; }
+  .section-inner > div { animation: fadeInUp 0.7s ease-out 0.15s forwards; opacity: 0; }
+  .conceito-item { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+  .conceito-item:nth-child(1) { animation-delay: 0s; }
+  .conceito-item:nth-child(2) { animation-delay: 0.15s; }
+  .conceito-item:nth-child(3) { animation-delay: 0.3s; }
 @media (max-width: 480px) {
 .espec-grid { grid-template-columns: 1fr; }
 .espec-item { border-right: none !important; }
@@ -268,9 +276,22 @@ nav { display: none; }
 <h3 class="conceito-titulo">Ler antes de tratar</h3>
 <p class="conceito-texto">O diagnóstico começa antes do exame. A anamnese é o primeiro instrumento, ouvir com precisão, registrar com cuidado, interpretar sem pressa.</p>
 </div>
-<div class="conceito-item">
+<div class="conceito-item">h
 <span class="conceito-num">ii.</span>
-<h3 class="conceito-titulo">Acolher com vocabulário</h3>
+<h3 class="conceito-titulo">Acolher com vocabulário</h3>h@media (max-width: 768px)  /* Scroll-based animations - elements fade in as user scrolls */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  .fade-in-scroll { opacity: 0; animation: fadeInUp 0.6s ease-out forwards; }
+  .section-inner > * { animation: fadeInUp 0.7s ease-out 0.1s forwards; }
+  .section-inner > *:nth-child(1) { animation-delay: 0s; }
+  .section-inner > *:nth-child(2) { animation-delay: 0.1s; }
+  .section-inner > *:nth-child(3) { animation-delay: 0.2s; }
+  .section-inner > *:nth-child(4) { animation-delay: 0.3s; }
+  .conceito-item { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+  .conceito-item:nth-child(1) { animation-delay: 0s; }
+  .conceito-item:nth-child(2) { animation-delay: 0.15s; }
+  .conceito-item:nth-child(3) { animation-delay: 0.3s; }
+
+  @media (max-width: 768px)
 <p class="conceito-texto">Cada paciente merece entender o que se passa com sua visão. Comunicar com precisão e sem jargão é parte essencial do tratamento.</p>
 </div>
 <div class="conceito-item">
