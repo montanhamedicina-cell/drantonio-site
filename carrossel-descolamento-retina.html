@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Carrossel · Descolamento de Retina · Dr. Antonio Eduardo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --tinta:   #1A1A2E;
+  --papiro:  #F5F0E8;
+  --verdete: #2D6A4F;
+  --ambar:   #E9C46A;
+  --pedra:   #8D99AE;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #2a2a3a;
+  color: var(--tinta);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding: 56px 24px 120px;
+}
+
+/* ============ TOOLBAR ============ */
+.toolbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  background-color: var(--tinta);
+  color: var(--papiro);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid rgba(245,240,232,0.08);
+  z-index: 100;
+}
+.toolbar-title {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--papiro);
+  letter-spacing: -0.01em;
+}
+.toolbar-title em {
+  font-style: normal;
+  color: var(--ambar);
+  margin-left: 8px;
+}
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.toolbar-btn {
+  background: none;
+  border: 1px solid rgba(245,240,232,0.18);
+  border-radius: 0;
+  color: var(--papiro);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background-color .15s ease;
+}
+.toolbar-btn + .toolbar-btn { border-left: none; }
+.toolbar-btn:hover { background-color: rgba(245,240,232,0.08); }
+.toolbar-btn:active { background-color: rgba(245,240,232,0.16); }
+.toolbar-counter {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--pedra);
+  margin: 0 16px;
+  letter-spacing: 0.08em;
+  min-width: 64px;
+  text-align: center;
+}
+
+/* ============ GALLERY ============ */
+.gallery {
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ============ SLIDE BASE ============ */
+.slide {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  /* container for relative font sizing — 540 / 1080 = 0.5 */
+  container-type: inline-size;
+}
+.slide-inner {
+  position: absolute;
+  inset: 0;
+  padding: 7.4cqw 7.4cqw; /* ~80px at 1080 */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Backgrounds */
+.bg-tinta  { background-color: var(--tinta); color: var(--papiro); }
+.bg-papiro { background-color: var(--papiro); color: var(--tinta); }
+
+/* Slide index (top-left meta) */
+.slide-meta {
+  position: absolute;
+  top: 7.4cqw;
+  left: 7.4cqw;
+  right: 7.4cqw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2cqw;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.slide-meta .meta-label { opacity: 0.55; }
+.slide-meta .meta-count { opacity: 0.55; }
+
+/* Slide footer brand mark */
+.slide-foot {
+  position: absolute;
+  bottom: 7.4cqw;
+  left: 7.4cqw;
+  right: 7.4cqw;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1cqw;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+/* ============ SLIDE 1 — CAPA ============ */
+.slide-1 .content {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.slide-1 .kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ambar);
+  margin-bottom: 4cqw;
+}
+.slide-1 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 11.6cqw;
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  color: var(--papiro);
+  margin-bottom: 5cqw;
+}
+.slide-1 .title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ambar);
+}
+.slide-1 .rule {
+  width: 28cqw;
+  height: 1px;
+  background-color: var(--ambar);
+  margin-bottom: 4cqw;
+}
+.slide-1 .sub {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.4cqw;
+  line-height: 1.45;
+  color: var(--papiro);
+  max-width: 65cqw;
+  opacity: 0.92;
+}
+.slide-1 .signature {
+  position: absolute;
+  bottom: 7.4cqw;
+  left: 7.4cqw;
+  right: 7.4cqw;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.slide-1 .signature .name {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2.2cqw;
+  color: var(--papiro);
+  line-height: 1.3;
+}
+.slide-1 .signature .role {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 1.1cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pedra);
+  margin-top: 0.6cqw;
+}
+.slide-1 .index-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pedra);
+  text-align: right;
+}
+
+/* ============ SLIDE 2 — O QUE É ============ */
+.slide-2 .layout {
+  display: grid;
+  grid-template-columns: 22cqw 1fr;
+  gap: 4cqw;
+  margin-top: 12cqw;
+  flex: 1;
+  align-items: start;
+}
+.slide-2 .bignum {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 22cqw;
+  line-height: 0.82;
+  color: var(--ambar);
+  letter-spacing: -0.04em;
+}
+.slide-2 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--verdete);
+  margin-bottom: 3cqw;
+}
+.slide-2 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 5.4cqw;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  color: var(--tinta);
+  margin-bottom: 4cqw;
+  max-width: 56cqw;
+}
+.slide-2 .title em { font-style: italic; }
+.slide-2 .body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.1cqw;
+  line-height: 1.55;
+  color: var(--tinta);
+  max-width: 56cqw;
+}
+.slide-2 .body strong {
+  font-weight: 600;
+  color: var(--verdete);
+}
+
+/* ============ SLIDE 3 — TIPOS ============ */
+.slide-3 .head {
+  margin-top: 8cqw;
+  margin-bottom: 6cqw;
+}
+.slide-3 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ambar);
+  margin-bottom: 2.5cqw;
+}
+.slide-3 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 7.2cqw;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--papiro);
+}
+.slide-3 .title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ambar);
+}
+.slide-3 .list {
+  list-style: none;
+  margin-top: 2cqw;
+}
+.slide-3 .list li {
+  border-top: 1px solid var(--verdete);
+  padding: 3.2cqw 0;
+  display: grid;
+  grid-template-columns: 6cqw 1fr;
+  gap: 3cqw;
+  align-items: baseline;
+}
+.slide-3 .list li:last-child {
+  border-bottom: 1px solid var(--verdete);
+}
+.slide-3 .list .idx {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4cqw;
+  letter-spacing: 0.16em;
+  color: var(--pedra);
+}
+.slide-3 .list .name {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 3.4cqw;
+  line-height: 1.1;
+  color: var(--papiro);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.2cqw;
+}
+.slide-3 .list .desc {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1.8cqw;
+  line-height: 1.5;
+  color: var(--papiro);
+  opacity: 0.78;
+}
+
+/* ============ SLIDE 4 — SINAIS ============ */
+.slide-4 .head {
+  margin-top: 8cqw;
+  margin-bottom: 5cqw;
+  max-width: 70cqw;
+}
+.slide-4 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--verdete);
+  margin-bottom: 2.5cqw;
+}
+.slide-4 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 6.4cqw;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--tinta);
+}
+.slide-4 .title em {
+  font-style: italic;
+  font-weight: 400;
+}
+.slide-4 .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid rgba(26,26,46,0.18);
+}
+.slide-4 .item {
+  padding: 3.4cqw 0;
+  border-bottom: 1px solid rgba(26,26,46,0.18);
+  padding-right: 3cqw;
+}
+.slide-4 .item:nth-child(odd) {
+  border-right: 1px solid rgba(26,26,46,0.18);
+  padding-right: 4cqw;
+}
+.slide-4 .item:nth-child(even) {
+  padding-left: 4cqw;
+}
+.slide-4 .item .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2cqw;
+  letter-spacing: 0.22em;
+  color: var(--verdete);
+  margin-bottom: 1.4cqw;
+}
+.slide-4 .item p {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2cqw;
+  line-height: 1.4;
+  color: var(--tinta);
+}
+.slide-4 .item p strong {
+  font-weight: 600;
+  color: var(--verdete);
+  display: block;
+  margin-bottom: 0.4cqw;
+  font-size: 2.2cqw;
+}
+.slide-4 .item p .tech {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4cqw;
+  color: var(--verdete);
+  letter-spacing: 0.04em;
+}
+
+/* ============ SLIDE 5 — ESTATÍSTICA ============ */
+.slide-5 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ambar);
+  margin-top: 8cqw;
+  margin-bottom: 4cqw;
+}
+.slide-5 .stat {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 400;
+  font-size: 16.6cqw;
+  line-height: 0.92;
+  color: var(--ambar);
+  letter-spacing: -0.04em;
+  margin-bottom: 6cqw;
+}
+.slide-5 .stat .small {
+  display: block;
+  font-size: 5.6cqw;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+.slide-5 .rule {
+  width: 18cqw;
+  height: 1px;
+  background-color: var(--ambar);
+  margin-bottom: 3.4cqw;
+}
+.slide-5 .sub {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.3cqw;
+  line-height: 1.5;
+  color: var(--papiro);
+  max-width: 64cqw;
+  margin-bottom: 4cqw;
+}
+.slide-5 .sub strong {
+  color: var(--ambar);
+  font-weight: 600;
+}
+.slide-5 .source {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1cqw;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--pedra);
+}
+
+/* ============ SLIDE 6 — FATORES ============ */
+.slide-6 .layout {
+  display: grid;
+  grid-template-columns: 8cqw 1fr;
+  gap: 5cqw;
+  margin-top: 7cqw;
+  flex: 1;
+  align-items: start;
+}
+.slide-6 .block {
+  background-color: var(--verdete);
+  width: 100%;
+  min-height: 60cqw;
+  align-self: stretch;
+}
+.slide-6 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--verdete);
+  margin-bottom: 2.5cqw;
+}
+.slide-6 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 6.4cqw;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--tinta);
+  margin-bottom: 5cqw;
+}
+.slide-6 .title em { font-style: italic; font-weight: 400; }
+.slide-6 .list {
+  list-style: none;
+}
+.slide-6 .list li {
+  display: grid;
+  grid-template-columns: 5cqw 1fr;
+  gap: 2cqw;
+  align-items: baseline;
+  padding: 2.3cqw 0;
+  border-bottom: 1px solid rgba(26,26,46,0.15);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.2cqw;
+  line-height: 1.35;
+  color: var(--tinta);
+}
+.slide-6 .list li:last-child { border-bottom: none; }
+.slide-6 .list .n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2cqw;
+  letter-spacing: 0.18em;
+  color: var(--verdete);
+}
+.slide-6 .list strong { font-weight: 600; }
+.slide-6 .list .ann {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.4cqw;
+  color: var(--pedra);
+  letter-spacing: 0.04em;
+}
+
+/* ============ SLIDE 7 — DIAGNÓSTICO ============ */
+.slide-7 .head {
+  margin-top: 7cqw;
+}
+.slide-7 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ambar);
+  margin-bottom: 2.5cqw;
+}
+.slide-7 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 6.4cqw;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--papiro);
+  margin-bottom: 4.5cqw;
+  max-width: 72cqw;
+}
+.slide-7 .title em { font-style: italic; font-weight: 400; color: var(--ambar); }
+.slide-7 .body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.1cqw;
+  line-height: 1.6;
+  color: var(--papiro);
+  opacity: 0.92;
+  max-width: 72cqw;
+  margin-bottom: 5cqw;
+}
+.slide-7 .body strong {
+  font-weight: 600;
+  color: var(--papiro);
+  opacity: 1;
+}
+.slide-7 .cta {
+  margin-top: auto;
+  padding-top: 4cqw;
+  border-top: 1px solid var(--ambar);
+}
+.slide-7 .cta .cta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pedra);
+  margin-bottom: 1.6cqw;
+}
+.slide-7 .cta .cta-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 4.4cqw;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ambar);
+  max-width: 75cqw;
+}
+
+/* ============ SLIDE 8 — TRATAMENTO ============ */
+.slide-8 .head {
+  margin-top: 7cqw;
+}
+.slide-8 .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--verdete);
+  margin-bottom: 2.5cqw;
+}
+.slide-8 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 6.2cqw;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--tinta);
+  margin-bottom: 1.5cqw;
+  max-width: 78cqw;
+}
+.slide-8 .title em { font-style: italic; font-weight: 400; color: var(--verdete); }
+.slide-8 .accent {
+  width: 14cqw;
+  height: 2px;
+  background-color: var(--verdete);
+  margin: 4cqw 0;
+}
+.slide-8 .body {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.1cqw;
+  line-height: 1.6;
+  color: var(--tinta);
+  max-width: 75cqw;
+  margin-bottom: 2.6cqw;
+}
+.slide-8 .body strong {
+  font-weight: 600;
+  color: var(--verdete);
+}
+.slide-8 .key {
+  margin-top: auto;
+  padding-top: 4cqw;
+  border-top: 1px solid rgba(26,26,46,0.18);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4cqw;
+}
+.slide-8 .key .cell .k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pedra);
+  margin-bottom: 1cqw;
+}
+.slide-8 .key .cell .v {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2.6cqw;
+  line-height: 1.2;
+  color: var(--tinta);
+}
+
+/* ============ SLIDE 9 — CTA FINAL ============ */
+.slide-9 .content {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.slide-9 .kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.3cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ambar);
+  margin-bottom: 3.6cqw;
+}
+.slide-9 .title {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: 7.4cqw;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--papiro);
+  margin-bottom: 4cqw;
+}
+.slide-9 .title em {
+  font-style: italic;
+  color: var(--ambar);
+}
+.slide-9 .rule {
+  width: 22cqw;
+  height: 1px;
+  background-color: var(--ambar);
+  margin: 4cqw 0;
+}
+.slide-9 .sub {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 2.3cqw;
+  line-height: 1.5;
+  color: var(--papiro);
+  opacity: 0.88;
+  max-width: 70cqw;
+}
+.slide-9 .contacts {
+  position: absolute;
+  bottom: 7.4cqw;
+  left: 7.4cqw;
+  right: 7.4cqw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4cqw;
+  border-top: 1px solid rgba(245,240,232,0.22);
+  padding-top: 4cqw;
+}
+.slide-9 .contacts .cell .k {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.1cqw;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pedra);
+  margin-bottom: 1.2cqw;
+}
+.slide-9 .contacts .cell .v {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.7cqw;
+  color: var(--papiro);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+.slide-9 .contacts .cell .v.fr {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 2.4cqw;
+  letter-spacing: -0.01em;
+}
+
+/* ============ PRINT / EXPORT MODE ============ */
+@media print {
+  body { background: white; padding: 0; }
+  .toolbar { display: none; }
+  .gallery { gap: 0; max-width: none; }
+  .slide { page-break-after: always; max-width: 1080px; max-height: 1080px; margin: 0 auto; }
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 600px) {
+  body { padding: 56px 0 80px; }
+  .gallery { gap: 0; }
+  .slide { border-radius: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <div class="toolbar-title">Carrossel · <em>Descolamento de Retina</em></div>
+  <div class="toolbar-controls">
+    <button class="toolbar-btn" id="btn-prev" aria-label="Slide anterior">← Anterior</button>
+    <span class="toolbar-counter" id="counter">01 / 09</span>
+    <button class="toolbar-btn" id="btn-next" aria-label="Próximo slide">Próximo →</button>
+  </div>
+</div>
+
+<div class="gallery" id="gallery">
+
+  <!-- ============ SLIDE 1 — CAPA ============ -->
+  <section class="slide slide-1 bg-tinta" id="slide-1" data-index="1">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Dr. Antonio Eduardo</span>
+        <span class="meta-count">01 / 09</span>
+      </div>
+
+      <div class="content">
+        <div class="kicker">Alerta clínico — visão</div>
+        <h1 class="title">Descolamento<br><em>de Retina</em></h1>
+        <div class="rule"></div>
+        <p class="sub">O que você precisa saber antes que seja tarde.</p>
+      </div>
+
+      <div class="signature">
+        <div>
+          <span class="name">Dr. Antonio Eduardo</span>
+          <span class="role">Oftalmologista · CRM-SP</span>
+        </div>
+        <div class="index-tag">Saúde ocular / 01</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 2 — O QUE É ============ -->
+  <section class="slide slide-2 bg-papiro" id="slide-2" data-index="2">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Conceito</span>
+        <span class="meta-count">02 / 09</span>
+      </div>
+
+      <div class="layout">
+        <div class="bignum">02</div>
+        <div>
+          <div class="label">Definição</div>
+          <h2 class="title">O que é o <em>descolamento de retina?</em></h2>
+          <p class="body">A retina é a camada interna do olho responsável por captar a luz. O <strong>descolamento</strong> ocorre quando ela se separa do tecido que a nutre — interrompendo a visão de forma <strong>súbita e silenciosa</strong>.</p>
+        </div>
+      </div>
+
+      <div class="slide-foot">
+        <span>Dr. Antonio Eduardo</span>
+        <span>@antonioeduardo94</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3 — TIPOS ============ -->
+  <section class="slide slide-3 bg-tinta" id="slide-3" data-index="3">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Classificação</span>
+        <span class="meta-count">03 / 09</span>
+      </div>
+
+      <div class="head">
+        <div class="label">Categoria clínica</div>
+        <h2 class="title">3 tipos <em>principais</em></h2>
+      </div>
+
+      <ul class="list">
+        <li>
+          <span class="idx">I.</span>
+          <div>
+            <div class="name">Regmatogênico</div>
+            <div class="desc">O mais comum; causado por uma ruptura na retina.</div>
+          </div>
+        </li>
+        <li>
+          <span class="idx">II.</span>
+          <div>
+            <div class="name">Tracional</div>
+            <div class="desc">Tecido cicatricial puxa a retina — comum no diabetes.</div>
+          </div>
+        </li>
+        <li>
+          <span class="idx">III.</span>
+          <div>
+            <div class="name">Exsudativo</div>
+            <div class="desc">Acúmulo de fluido sem ruptura na camada.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4 — SINAIS ============ -->
+  <section class="slide slide-4 bg-papiro" id="slide-4" data-index="4">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Sintomas</span>
+        <span class="meta-count">04 / 09</span>
+      </div>
+
+      <div class="head">
+        <div class="label">Atenção imediata</div>
+        <h2 class="title">Não ignore <em>estes sinais</em></h2>
+      </div>
+
+      <div class="grid">
+        <div class="item">
+          <div class="n">01</div>
+          <p><strong>Flashes de luz</strong><span class="tech">fotopsias</span></p>
+        </div>
+        <div class="item">
+          <div class="n">02</div>
+          <p><strong>Moscas volantes</strong><span class="tech">miodesopsias em grande quantidade</span></p>
+        </div>
+        <div class="item">
+          <div class="n">03</div>
+          <p><strong>Sombra ou cortina</strong><span class="tech">no campo visual</span></p>
+        </div>
+        <div class="item">
+          <div class="n">04</div>
+          <p><strong>Perda súbita de visão</strong><span class="tech">central ou periférica</span></p>
+        </div>
+      </div>
+
+      <div class="slide-foot">
+        <span>Dr. Antonio Eduardo</span>
+        <span>@antonioeduardo94</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5 — ESTATÍSTICA ============ -->
+  <section class="slide slide-5 bg-tinta" id="slide-5" data-index="5">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Dado clínico</span>
+        <span class="meta-count">05 / 09</span>
+      </div>
+
+      <div class="label">Incidência anual</div>
+      <div class="stat">1<span class="small">em cada 10.000</span></div>
+      <div class="rule"></div>
+      <p class="sub">pessoas é afetada por ano — mas <strong>miopes e pessoas com mais de 50 anos</strong> têm risco até 5× maior.</p>
+
+      <div class="slide-foot">
+        <span>Fonte / literatura oftalmológica</span>
+        <span>05 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6 — FATORES ============ -->
+  <section class="slide slide-6 bg-papiro" id="slide-6" data-index="6">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Fatores de risco</span>
+        <span class="meta-count">06 / 09</span>
+      </div>
+
+      <div class="layout">
+        <div class="block"></div>
+        <div>
+          <div class="label">Perfil de risco</div>
+          <h2 class="title">Quem tem <em>mais risco?</em></h2>
+          <ul class="list">
+            <li>
+              <span class="n">01</span>
+              <span><strong>Miopia elevada</strong> <span class="ann">acima de −6 graus</span></span>
+            </li>
+            <li>
+              <span class="n">02</span>
+              <span><strong>Histórico familiar</strong> <span class="ann">predisposição genética</span></span>
+            </li>
+            <li>
+              <span class="n">03</span>
+              <span><strong>Trauma ocular</strong> <span class="ann">recente ou antigo</span></span>
+            </li>
+            <li>
+              <span class="n">04</span>
+              <span><strong>Cirurgia ocular prévia</strong> <span class="ann">catarata</span></span>
+            </li>
+            <li>
+              <span class="n">05</span>
+              <span><strong>Diabetes mellitus</strong> <span class="ann">descompensado</span></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide-foot">
+        <span>Dr. Antonio Eduardo</span>
+        <span>06 / 09</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7 — DIAGNÓSTICO ============ -->
+  <section class="slide slide-7 bg-tinta" id="slide-7" data-index="7">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Diagnóstico</span>
+        <span class="meta-count">07 / 09</span>
+      </div>
+
+      <div class="head">
+        <div class="label">Exame indispensável</div>
+        <h2 class="title">Como é feito o <em>diagnóstico?</em></h2>
+        <p class="body">O oftalmologista realiza o <strong>mapeamento de retina</strong> com dilatação pupilar — um exame indolor que permite visualizar toda a extensão da retina. É o <strong>único exame</strong> capaz de detectar rupturas antes do descolamento.</p>
+      </div>
+
+      <div class="cta">
+        <div class="cta-label">Pergunta</div>
+        <div class="cta-text">Você fez seu mapeamento este ano?</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8 — TRATAMENTO ============ -->
+  <section class="slide slide-8 bg-papiro" id="slide-8" data-index="8">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Tratamento</span>
+        <span class="meta-count">08 / 09</span>
+      </div>
+
+      <div class="head">
+        <h2 class="title">Tem tratamento —<br><em>mas o tempo importa</em></h2>
+        <div class="accent"></div>
+        <p class="body">O tratamento é <strong>cirúrgico</strong> e deve ser realizado com <strong>urgência</strong>. Quanto mais rápido o diagnóstico, maiores as chances de recuperação visual completa.</p>
+        <p class="body">Casos tratados <strong>antes do envolvimento macular</strong> têm prognóstico significativamente melhor.</p>
+      </div>
+
+      <div class="key">
+        <div class="cell">
+          <div class="k">Conduta</div>
+          <div class="v">Cirurgia de urgência</div>
+        </div>
+        <div class="cell">
+          <div class="k">Prognóstico</div>
+          <div class="v">Depende do tempo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9 — CTA FINAL ============ -->
+  <section class="slide slide-9 bg-tinta" id="slide-9" data-index="9">
+    <div class="slide-inner">
+      <div class="slide-meta">
+        <span class="meta-label">Próximo passo</span>
+        <span class="meta-count">09 / 09</span>
+      </div>
+
+      <div class="content">
+        <div class="kicker">Agende sua consulta</div>
+        <h2 class="title">Cuide da sua visão<br><em>antes que os sintomas apareçam.</em></h2>
+        <div class="rule"></div>
+        <p class="sub">Agende sua consulta e faça o mapeamento de retina com o Dr. Antonio Eduardo.</p>
+      </div>
+
+      <div class="contacts">
+        <div class="cell">
+          <div class="k">WhatsApp</div>
+          <div class="v">wa.me/5511XXXXXXXXX</div>
+        </div>
+        <div class="cell">
+          <div class="k">Instagram</div>
+          <div class="v">@antonioeduardo94</div>
+        </div>
+        <div class="cell">
+          <div class="k">Atendimento</div>
+          <div class="v fr">São Paulo · São Bernardo do Campo</div>
+        </div>
+        <div class="cell">
+          <div class="k">Especialidade</div>
+          <div class="v fr">Oftalmologia clínica e cirúrgica</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var counter = document.getElementById('counter');
+  var btnPrev = document.getElementById('btn-prev');
+  var btnNext = document.getElementById('btn-next');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+  var total = slides.length;
+
+  function getCurrentIndex() {
+    var viewportCenter = window.scrollY + window.innerHeight / 2;
+    var best = 0;
+    var bestDist = Infinity;
+    for (var i = 0; i < slides.length; i++) {
+      var rect = slides[i].getBoundingClientRect();
+      var slideTop = rect.top + window.scrollY;
+      var slideCenter = slideTop + rect.height / 2;
+      var dist = Math.abs(slideCenter - viewportCenter);
+      if (dist < bestDist) { bestDist = dist; best = i; }
+    }
+    return best;
+  }
+
+  function updateCounter() {
+    var i = getCurrentIndex();
+    counter.textContent = pad(i + 1) + ' / ' + pad(total);
+  }
+
+  function scrollToSlide(i) {
+    if (i < 0) i = 0;
+    if (i >= total) i = total - 1;
+    slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  btnPrev.addEventListener('click', function () {
+    scrollToSlide(getCurrentIndex() - 1);
+  });
+  btnNext.addEventListener('click', function () {
+    scrollToSlide(getCurrentIndex() + 1);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') {
+      e.preventDefault();
+      scrollToSlide(getCurrentIndex() + 1);
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault();
+      scrollToSlide(getCurrentIndex() - 1);
+    }
+  });
+
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(function () {
+        updateCounter();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateCounter();
+})();
+</script>
+
+</body>
+</html>
