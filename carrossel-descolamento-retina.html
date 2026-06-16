@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root {
   --tinta:   #1A1A2E;
@@ -86,6 +87,42 @@ body {
   min-width: 64px;
   text-align: center;
 }
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  margin-left: 16px;
+  padding-left: 16px;
+  border-left: 1px solid rgba(245,240,232,0.18);
+}
+.toolbar-btn.is-accent {
+  background-color: var(--ambar);
+  color: var(--tinta);
+  border-color: var(--ambar);
+  font-weight: 500;
+}
+.toolbar-btn.is-accent:hover { background-color: #d9b558; border-color: #d9b558; }
+.toolbar-btn:disabled { opacity: 0.45; cursor: progress; }
+.export-status {
+  position: fixed;
+  top: 56px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--tinta);
+  color: var(--ambar);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border: 1px solid var(--ambar);
+  border-top: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  z-index: 99;
+  white-space: nowrap;
+}
+.export-status.is-visible { opacity: 1; }
 
 /* ============ GALLERY ============ */
 .gallery {
@@ -758,8 +795,13 @@ body {
     <button class="toolbar-btn" id="btn-prev" aria-label="Slide anterior">← Anterior</button>
     <span class="toolbar-counter" id="counter">01 / 09</span>
     <button class="toolbar-btn" id="btn-next" aria-label="Próximo slide">Próximo →</button>
+    <span class="toolbar-group">
+      <button class="toolbar-btn is-accent" id="btn-export" aria-label="Exportar slide atual como PNG">Exportar PNG</button>
+      <button class="toolbar-btn" id="btn-export-all" aria-label="Exportar todos os slides">Exportar todos</button>
+    </span>
   </div>
 </div>
+<div class="export-status" id="export-status" role="status" aria-live="polite"></div>
 
 <div class="gallery" id="gallery">
 
@@ -1106,6 +1148,100 @@ body {
   }, { passive: true });
 
   updateCounter();
+
+  // ============ EXPORT (html2canvas) ============
+  var EXPORT_SIZE = 1080;
+  var btnExport = document.getElementById('btn-export');
+  var btnExportAll = document.getElementById('btn-export-all');
+  var statusEl = document.getElementById('export-status');
+  var exporting = false;
+
+  function showStatus(text) {
+    statusEl.textContent = text;
+    statusEl.classList.add('is-visible');
+  }
+  function hideStatus() {
+    statusEl.classList.remove('is-visible');
+  }
+
+  function exportSlide(slide) {
+    var rect = slide.getBoundingClientRect();
+    var scale = EXPORT_SIZE / rect.width;
+    return html2canvas(slide, {
+      backgroundColor: null,
+      scale: scale,
+      width: rect.width,
+      height: rect.height,
+      windowWidth: document.documentElement.clientWidth,
+      windowHeight: document.documentElement.clientHeight,
+      useCORS: true,
+      logging: false
+    }).then(function (canvas) {
+      return new Promise(function (resolve) {
+        canvas.toBlob(function (blob) { resolve(blob); }, 'image/png');
+      });
+    });
+  }
+
+  function downloadBlob(blob, filename) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 2000);
+  }
+
+  function setBusy(busy) {
+    exporting = busy;
+    btnExport.disabled = busy;
+    btnExportAll.disabled = busy;
+    btnPrev.disabled = busy;
+    btnNext.disabled = busy;
+  }
+
+  btnExport.addEventListener('click', function () {
+    if (exporting) return;
+    setBusy(true);
+    var i = getCurrentIndex();
+    showStatus('Gerando slide ' + pad(i + 1) + '…');
+    exportSlide(slides[i]).then(function (blob) {
+      downloadBlob(blob, 'descolamento-retina-' + pad(i + 1) + '.png');
+      showStatus('Slide ' + pad(i + 1) + ' exportado');
+      setTimeout(hideStatus, 1400);
+    }).catch(function (err) {
+      console.error(err);
+      showStatus('Erro ao exportar');
+      setTimeout(hideStatus, 2000);
+    }).finally(function () { setBusy(false); });
+  });
+
+  btnExportAll.addEventListener('click', function () {
+    if (exporting) return;
+    setBusy(true);
+    var seq = Promise.resolve();
+    slides.forEach(function (slide, i) {
+      seq = seq.then(function () {
+        showStatus('Gerando ' + pad(i + 1) + ' / ' + pad(total) + '…');
+        slide.scrollIntoView({ behavior: 'auto', block: 'start' });
+        return new Promise(function (r) { setTimeout(r, 120); })
+          .then(function () { return exportSlide(slide); })
+          .then(function (blob) {
+            downloadBlob(blob, 'descolamento-retina-' + pad(i + 1) + '.png');
+          });
+      });
+    });
+    seq.then(function () {
+      showStatus('9 slides exportados');
+      setTimeout(hideStatus, 1800);
+    }).catch(function (err) {
+      console.error(err);
+      showStatus('Erro ao exportar');
+      setTimeout(hideStatus, 2000);
+    }).finally(function () { setBusy(false); });
+  });
 })();
 </script>
 
