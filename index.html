@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#F1EADC" />
 <title>Dr Antonio · Oftalmologia</title>
 <meta name="description" content="Dr Antonio Eduardo Barbosa da Silva — oftalmologista com atuação em São Paulo, São Bernardo do Campo, Osasco, Alphaville, Criciúma e Tubarão." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,6 +24,7 @@
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+html { color-scheme: light; }
 body { font-family: 'Inter', system-ui, sans-serif; font-size: 17px; line-height: 1.6; color: var(--tinta); background-color: var(--papiro); -webkit-font-smoothing: antialiased; }
 .divider { border: none; border-top: 0.5px solid rgba(111,106,98,0.35); }
 
@@ -48,17 +50,17 @@ nav a:hover { opacity: 1; color: var(--ambar); }
 .hero { padding-top: 96px; background-color: var(--papiro); position: relative; overflow: hidden; }
 .hero-inner { max-width: 1200px; margin: 0 auto; padding: 120px 40px 100px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
 .hero-photo { display: flex; justify-content: center; position: relative; }
-.hero-photo img { width: 100%; max-width: 360px; aspect-ratio: 4/5; object-fit: cover; border: 0.5px solid rgba(111,106,98,0.35); filter: grayscale(15%); position: relative; z-index: 1; }
+.hero-photo img { width: 100%; max-width: 360px; height: auto; aspect-ratio: 4/5; object-fit: cover; border: 0.5px solid rgba(111,106,98,0.35); filter: grayscale(15%); position: relative; z-index: 1; }
 .hero-photo::before { content: ''; position: absolute; top: -16px; left: 50%; transform: translateX(calc(-50% + 16px)) translateY(16px); width: calc(100% - 24px); max-width: 360px; height: calc(100% + 0px); background-color: var(--verdete); z-index: 0; opacity: 0.85; }
 .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--verdete); margin-bottom: 28px; }
 .hero-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.12; letter-spacing: -0.025em; color: var(--tinta); margin-bottom: 32px; }
 .hero-subtitle { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 18px; line-height: 1.7; color: var(--tinta); opacity: 0.65; margin-bottom: 52px; }
 .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
-.btn-verdete { display: inline-block; background-color: var(--verdete); color: white; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; transition: background-color .2s ease; }
+.btn-verdete { display: inline-block; background-color: var(--verdete); color: var(--papiro); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; transition: background-color .2s ease; }
 .btn-verdete:hover { background-color: var(--verdete-dark); border-color: var(--verdete-dark); }
 .btn-amber { display: inline-block; background-color: var(--ambar); color: var(--tinta); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--ambar); text-decoration: none; line-height: 1; letter-spacing: 0.01em; transition: background-color .2s ease; }
 .btn-amber:hover { background-color: var(--ambar-dark); border-color: var(--ambar-dark); }
-.btn-primary { display: inline-block; background-color: var(--verdete); color: white; font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
+.btn-primary { display: inline-block; background-color: var(--verdete); color: var(--papiro); font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; padding: 16px 32px; border-radius: 0; border: 2px solid var(--verdete); text-decoration: none; line-height: 1; letter-spacing: 0.01em; }
 .btn-primary:hover { background-color: var(--verdete-dark); border-color: var(--verdete-dark); }
 
 .section-inner { max-width: 1200px; margin: 0 auto; padding: 96px 40px; position: relative; }
@@ -89,7 +91,7 @@ nav a:hover { opacity: 1; color: var(--ambar); }
 #conceito { background-color: var(--verdete); position: relative; overflow: hidden; }
 #conceito::before { content: ''; position: absolute; inset: 0; opacity: 0.08; background-image: radial-gradient(circle at center, var(--ambar) 1.2px, transparent 2px), radial-gradient(circle at center, transparent 6px, rgba(241,234,220,0.6) 6.5px, transparent 7.5px); background-size: 40px 40px; pointer-events: none; }
 #conceito .section-inner { position: relative; z-index: 1; }
-.conceito-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,234,220,0.45); margin-bottom: 24px; }
+.conceito-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,234,220,0.72); margin-bottom: 24px; }
 .conceito-heading { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(28px, 3.5vw, 44px); line-height: 1.2; letter-spacing: -0.02em; color: var(--papiro); margin-bottom: 28px; max-width: 720px; }
 .conceito-intro { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 17px; line-height: 1.8; color: rgba(241,234,220,0.78); margin-bottom: 56px; max-width: 760px; }
 .conceito-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0.5px solid rgba(241,234,220,0.18); }
@@ -105,7 +107,7 @@ nav a:hover { opacity: 1; color: var(--ambar); }
 #especialidades .section-inner { position: relative; z-index: 1; }
 .espec-divider { border: none; border-top: 0.5px solid rgba(241,234,220,0.12); }
 .espec-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 64px; flex-wrap: wrap; gap: 16px; }
-.espec-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,234,220,0.45); }
+.espec-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(241,234,220,0.72); }
 .espec-title { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(26px, 3vw, 40px); line-height: 1.2; letter-spacing: -0.02em; color: var(--papiro); }
 .espec-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid rgba(241,234,220,0.15); }
 .espec-item { display: flex; align-items: flex-start; gap: 18px; padding: 36px 28px 36px 0; border-bottom: 0.5px solid rgba(241,234,220,0.12); border-right: 0.5px solid rgba(241,234,220,0.1); }
@@ -151,15 +153,17 @@ footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; hei
 .footer-logo { text-decoration: none; display: flex; align-items: baseline; }
 .footer-logo-dr { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 16px; color: var(--verdete); }
 .footer-logo-antonio { font-family: 'Fraunces', serif; font-style: normal; font-weight: 400; font-size: 16px; color: var(--papiro); margin-left: 3px; }
-.footer-copy { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(241,234,220,0.35); font-weight: 300; }
+.footer-copy { font-family: 'Inter', sans-serif; font-size: 13px; color: rgba(241,234,220,0.72); font-weight: 300; }
 .footer-links { display: flex; gap: 24px; }
-.footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; color: rgba(241,234,220,0.35); text-decoration: none; }
+.footer-links a { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400; color: rgba(241,234,220,0.72); text-decoration: none; }
 .footer-links a:hover { color: rgba(241,234,220,0.75); }
 
 @media (max-width: 768px) {
 .header-inner { padding: 0 24px; }
 nav { display: none; }
 .hamburger { display: flex; }
+.header-cta { display: none; }
+.header-inner { gap: 12px; }
 .mobile-nav a { padding: 16px 24px; }
 .hero-inner { padding: 80px 24px 72px; grid-template-columns: 1fr; gap: 48px; }
 .hero-photo { order: -1; }
@@ -183,6 +187,17 @@ nav { display: none; }
 .faixa-pontos { height: 80px; }
 .easter-egg.ee-sobre, .easter-egg.ee-conceito, .easter-egg.ee-contato { width: 64px; height: 42px; top: 24px; right: 24px; }
 }
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--ambar); outline-offset: 3px; }
+section[id] { scroll-margin-top: 104px; }
+.skip-link { position: absolute; left: 16px; top: -48px; background: var(--verdete); color: var(--papiro); padding: 10px 16px; z-index: 200; text-decoration: none; font-size: 14px; }
+.skip-link:focus { top: 16px; }
+a, button { touch-action: manipulation; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .section-inner > div, .conceito-item { opacity: 1; }
+}
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in-scroll { opacity: 0; animation: fadeInUp 0.6s ease-out forwards; }
 .section-inner > div { animation: fadeInUp 0.7s ease-out 0.15s forwards; opacity: 0; }
@@ -198,6 +213,7 @@ nav { display: none; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Pular para o conteúdo</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="sym-sunburst" viewBox="-55 25 510 320" preserveAspectRatio="xMidYMid meet">
@@ -222,7 +238,7 @@ nav { display: none; }
 <a href="#contato">Contato</a>
 </nav>
 <a class="header-cta" href="https://api.whatsapp.com/send?phone=5511989809639" target="_blank" rel="noopener noreferrer">Agendar Consulta</a>
-<button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu">
+<button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav">
 <span></span><span></span><span></span>
 </button>
 </div>
@@ -231,6 +247,7 @@ nav { display: none; }
 <a href="#especialidades" onclick="closeMobileNav()">Áreas de atuação</a>
 <a href="#cidades" onclick="closeMobileNav()">Onde atendo</a>
 <a href="#contato" onclick="closeMobileNav()">Contato</a>
+<a href="https://api.whatsapp.com/send?phone=5511989809639" target="_blank" rel="noopener noreferrer" onclick="closeMobileNav()">Agendar Consulta</a>
 </div>
 </header>
 
@@ -246,7 +263,7 @@ nav { display: none; }
 </div>
 </div>
 <div class="hero-photo">
-<img src="FOTO-FORMATURA.jpeg" alt="Dr Antonio Eduardo Barbosa da Silva" />
+<img src="FOTO-FORMATURA.jpeg" alt="Dr Antonio Eduardo Barbosa da Silva" width="2776" height="4160" fetchpriority="high" />
 </div>
 </div>
 </section>
@@ -412,8 +429,13 @@ nav { display: none; }
 <script>
 const btn = document.getElementById('hamburgerBtn');
 const nav = document.getElementById('mobileNav');
-btn.addEventListener('click', () => nav.classList.toggle('open'));
-function closeMobileNav() { nav.classList.remove('open'); }
+function setMenu(open) {
+  nav.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', String(open));
+  btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+}
+btn.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
+function closeMobileNav() { setMenu(false); }
 </script>
 </body>
 </html>
